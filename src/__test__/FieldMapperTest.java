@@ -5,11 +5,11 @@ import org.junit.Test;
 
 /**
  * Test case for our FieldMapper class.
- * 
+ *
  * @author Tony Nguyen
  * @version 2.0
  */
-public class FieldMapperTest 
+public class FieldMapperTest
 {
     /**
      * Testing the constructor.
@@ -41,15 +41,15 @@ public class FieldMapperTest
      */
     @Test
     public void testExtractPointND()
-    {   
+    {
         // Creating the FieldMapper.
         String testColumnHeaders = ("time,right_wrist_x,left_shoulder_z");
         String testValues = ("0.02,0.238,2.11");
         FieldMapper testFieldMapper = new FieldMapper(testColumnHeaders.split(","));
         // Tests that the values match up with the values in PointND.
-        Assert.assertEquals(0.02, testFieldMapper.extractPointND(testValues.split(","), 
+        Assert.assertEquals(0.02, testFieldMapper.extractPointND(testValues.split(","),
                 "time").getValue("").getDoubleValue(), 0.001);
-        Assert.assertEquals(0.238, testFieldMapper.extractPointND(testValues.split(","), 
+        Assert.assertEquals(0.238, testFieldMapper.extractPointND(testValues.split(","),
                 "right_wrist").getValue("x").getDoubleValue(), 0.001);
     }
 
@@ -63,7 +63,7 @@ public class FieldMapperTest
         FieldMapper testFieldMapper = new FieldMapper(testColumnHeaders.split(","));
         Assert.assertEquals(3, testFieldMapper.size());
     }
-    
+
     /**
      * Tests the iterator method.
      */
