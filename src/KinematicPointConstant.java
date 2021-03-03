@@ -39,6 +39,7 @@ public class KinematicPointConstant extends KinematicPointAbstract
      */
     public GeneralValue getScreenCoordinate(State state, String screenSubfield)
     {
+        point = state.getPoint(screenSubfield);
         GeneralValue screenValueCoordinate = point.getValue(screenSubfield);
         return screenValueCoordinate;
     }

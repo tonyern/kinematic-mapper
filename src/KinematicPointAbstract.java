@@ -1,6 +1,7 @@
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
@@ -73,9 +74,8 @@ public abstract class KinematicPointAbstract
                 Shape line = new Line2D.Double(currentPointX.getDoubleValue() * scale, currentPointY.getDoubleValue() * scale,
                         childPointX.getDoubleValue() * scale, childPointY.getDoubleValue() * scale);
 
-                // Draw line between the two points.
+                // Draw line between the two points. Use basic stroke. line2d
                 g.setStroke(stroke);
-                g.setColor(color);
                 g.draw(line);
             }
 

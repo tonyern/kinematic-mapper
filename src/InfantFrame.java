@@ -39,6 +39,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author CS2334, modified by Tony Nguyen
  * @version 2.0
+ *
  */
 public class InfantFrame extends JFrame
 {
@@ -381,7 +382,7 @@ public class InfantFrame extends JFrame
                 public void actionPerformed(ActionEvent e)
                 {
                     // Set the current time to one higher than its current value
-                    DataPanel.this.setTime(DataPanel.this.currentTime+1);
+                    currentTime += 1;
                 }
 
             });
@@ -459,17 +460,19 @@ public class InfantFrame extends JFrame
                 @Override
                 public void actionPerformed(ActionEvent e)
                 {
-                    // Start the timer if the user clicks on the start button.
-                    if (DataPanel.this.runButton.getText().equals("Start"))
+                    // If the timer is running and the user wants to stop it.
+                    if (timer.isRunning())
                     {
-                        DataPanel.this.runButton.setText("Stop");
-                        DataPanel.this.timer.start();
+                        // Change button text to stop and timer stops running.
+                        runButton.setText("Stop");
+                        timer.stop();
                     }
-                    // Stop the timer if user clicks again.
-                    else
+                    // If the timer is stopped and user wants to run it again.
+                    if (!timer.isRunning())
                     {
-                        DataPanel.this.runButton.setText("Start");
-                        DataPanel.this.timer.stop();
+                        // Change button text to start and timer runs.
+                        runButton.setText("Start");
+                        timer.start();
                     }
                 }
 
@@ -505,21 +508,22 @@ public class InfantFrame extends JFrame
             if (InfantFrame.this.trial != null)
             {
                 // Is the new time within 0 to 15000 range?
-                if (newTime >= 0 && newTime < InfantFrame.this.trial.getSize())
+                if (newTime >= 0 && newTime < 15000)
                 {
                     // Set the currentTime to the newTime.
                     this.currentTime = newTime;
                     // Set the timeSlider to the new time.
-                    this.timeSlider.setValue(newTime);
+                    this.timeSlider.setValue(currentTime);
                     // Extract state for current time and force an update on display.
+                    State state = new State();
+                    state.getPoint("time").getValue("scalar").toString();
                     // Force an update.
-                    update(InfantFrame.this.trial.getItem(newTime));
+                    update(state);
                 }
                 // Else if new time is not in allowable range then timer is off.
                 else
                 {
-                    DataPanel.this.runButton.setText("Start");
-                    DataPanel.this.timer.stop();
+                    timer.stop();
                 }
             }
         }
@@ -536,7 +540,7 @@ public class InfantFrame extends JFrame
             // Root at point (0, 0, 0).
             KinematicPointConstant root = new KinematicPointConstant(new Color(252, 24, 24), LINE_WIDTH, 0, 0, 0);
             // Lower Back at point (0.1, 0, 0).
-            KinematicPointConstant lowerBack = new KinematicPointConstant(new Color(24, 252, 24), LINE_WIDTH, 0.1, 0, 0);
+            KinematicPointConstant lowerBack = new KinematicPointConstant(new Color(252, 24, 24), LINE_WIDTH, 0.1, 0, 0);
             // Left Hip at point (0, 0.05, 0).
             KinematicPointConstant leftHip = new KinematicPointConstant(new Color(252, 24, 24), LINE_WIDTH, 0, 0.05, 0);
             // Left Hip at point (0, -0.05, 0).
@@ -547,7 +551,7 @@ public class InfantFrame extends JFrame
             root.addChild(rightHip);
 
             /** Lower Back and its child Upper Back. */
-            KinematicPointState upperBack = new KinematicPointState(new Color(24, 252, 24), LINE_WIDTH, "upper_back");
+            KinematicPointState upperBack = new KinematicPointState(new Color(252, 24, 24), LINE_WIDTH, "upper_back");
             lowerBack.addChild(upperBack);
 
             /** Upper Back and its child Left Shoulder. */
@@ -559,11 +563,11 @@ public class InfantFrame extends JFrame
             upperBack.addChild(rightShoulder);
 
             /** Left Shoulder and its child Left Elbow. */
-            KinematicPointState leftElbow = new KinematicPointState(new Color(24, 252, 24), LINE_WIDTH, "left_elbow");
+            KinematicPointState leftElbow = new KinematicPointState(new Color(252, 24, 24), LINE_WIDTH, "left_elbow");
             leftShoulder.addChild(leftElbow);
 
             /** Right Shoulder and its child Right Elbow. */
-            KinematicPointState rightElbow = new KinematicPointState(new Color(24, 252, 24), LINE_WIDTH, "right_elbow");
+            KinematicPointState rightElbow = new KinematicPointState(new Color(252, 24, 24), LINE_WIDTH, "right_elbow");
             rightShoulder.addChild(rightElbow);
 
             /** Left Elbow and its child Left Wrist */
@@ -575,11 +579,11 @@ public class InfantFrame extends JFrame
             rightElbow.addChild(rightWrist);
 
             /** Left Hip and its child Left Knee. */
-            KinematicPointState leftKnee = new KinematicPointState(new Color(24, 252, 24), LINE_WIDTH, "left_knee");
+            KinematicPointState leftKnee = new KinematicPointState(new Color(252, 24, 24), LINE_WIDTH, "left_knee");
             leftHip.addChild(leftKnee);
 
             /** Right Hip and its child Right Knee. */
-            KinematicPointState rightKnee = new KinematicPointState(new Color(24, 252, 24), LINE_WIDTH, "right_knee");
+            KinematicPointState rightKnee = new KinematicPointState(new Color(252, 24, 24), LINE_WIDTH, "right_knee");
             rightHip.addChild(rightKnee);
 
             /** Left Knee and its child Left Ankle. */
@@ -591,11 +595,11 @@ public class InfantFrame extends JFrame
             rightKnee.addChild(rightAnkle);
 
             /** Left Ankle and its child Left Foot. */
-            KinematicPointState leftFoot = new KinematicPointState(new Color(24, 252, 24), LINE_WIDTH, "left_foot");
+            KinematicPointState leftFoot = new KinematicPointState(new Color(252, 24, 24), LINE_WIDTH, "left_foot");
             leftAnkle.addChild(leftFoot);
 
             /** Right Ankle and its child Right Foot. */
-            KinematicPointState rightFoot = new KinematicPointState(new Color(24, 252, 24), LINE_WIDTH, "right_foot");
+            KinematicPointState rightFoot = new KinematicPointState(new Color(252, 24, 24), LINE_WIDTH, "right_foot");
             rightAnkle.addChild(rightFoot);
 
             return root;
@@ -617,13 +621,11 @@ public class InfantFrame extends JFrame
             this.rearViewPanel.setState(state);
 
             // Update each of the textfields like InfantID and the timestep.
-            infantTextField.setText("Infant: " + state.getTrial().getInfant().getInfantID());
-            timeTextField.setText("Time Step: " + this.currentTime);
+            infantTextField = new JTextField(state.getTrial().getInfant().getInfantID());
+            timeTextField = new JTextField(state.getPoint("time").getValue("").toString());
 
             // Force all components to redraw.
-            this.topViewPanel.repaint();
-            this.sideViewPanel.repaint();
-            this.rearViewPanel.repaint();
+            repaint();
         }
     }
 
@@ -723,6 +725,7 @@ public class InfantFrame extends JFrame
                 this.trial = infant.getItem(trialIndex);
                 // Reset the time index to the beginning (this will cause an update)
                 this.dataPanel.setTime(0);
+
             }
         }
     }
