@@ -8,74 +8,70 @@ import java.util.TreeMap;
  * @author Tony Nguyen
  * @version 2.0
  */
-public class Field implements Iterable<String>
-{
-    /** Storing fields, (x, y, z) as an example, with its respective values. */
-    private Map<String, Integer> subFields;
+public class Field implements Iterable<String> {
+    /**
+     * Storing fields, (x, y, z) as an example, with its respective values.
+     */
+    private final Map<String, Integer> subFields;
 
-    public Field()
-    {
+    public Field() {
         subFields = new TreeMap<String, Integer>();
     }
 
     /**
      * Add the sub field name along with its corresponding column number.
+     *
      * @param subFieldName is for example left_wrist_x, fieldMapper splits that and "x" is the subfield.
-     * @param columnIndex this is the column number in the files.
+     * @param columnIndex  this is the column number in the files.
      */
-    public void addSubField(String subFieldName, int columnIndex)
-    {
+    public void addSubField(String subFieldName, int columnIndex) {
         subFields.put(subFieldName, columnIndex);
     }
 
     /**
      * Get the value with the corresponding key.
+     *
      * @param subFieldName is for example left_wrist_x, fieldMapper splits that and "x" is the subfield.
      * @return Integer value with the passing key.
      */
-    public Integer getIndex(String subFieldName)
-    {
+    public Integer getIndex(String subFieldName) {
         // Checking if subFieldName is in the map. If not then return null.
-        if (subFields.containsKey(subFieldName))
-        {
+        if (subFields.containsKey(subFieldName)) {
             return subFields.get(subFieldName);
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
 
     /**
      * Get the current size of the map.
+     *
      * @return size of subField map.
      */
-    public int size()
-    {
+    public int size() {
         return subFields.size();
     }
 
     /**
      * Iterators through the fieldMap Map all field names.
      * It overrides the method defined in Iterator interface.
+     *
      * @return loopThrough
      */
     @Override
-    public Iterator<String> iterator()
-    {
+    public Iterator<String> iterator() {
         return this.subFields.keySet().iterator();
     }
 
     /**
      * Return a string in the format - "SUBFIELD(INDEX); "
+     *
      * @return string
      */
-    public String toString()
-    {
+    public String toString() {
         String out = "";
 
-        for (String subField : this)
-        {
+        for (String subField : this) {
             out += subField + "(" + subFields.get(subField) + "); ";
         }
 

@@ -1,5 +1,3 @@
-import java.io.IOException;
-
 /**
  * Main class that runs the program.
  *
@@ -7,8 +5,7 @@ import java.io.IOException;
  * @version 2.0
  */
 public class Driver {
-    public static void main(String[] args) throws IOException
-    {
+    public static void main(String[] args) {
         new InfantFrame();
     }
 }
