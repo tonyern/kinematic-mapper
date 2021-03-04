@@ -9,4 +9,4 @@ The Self-Initiated Prone Progression Crawler (SIPPC) is an assistive robot that 
 One sensor subsystem worn by the infant is a kinematic capture suit. Small inertial measurement units (IMUs) are strapped to the infant at twelve different points. 1 These sensors, among other information, provide an estimate of the orientation of key body segments. Combined with a skeletal model of the infant, we are able to infer in real time the position of particular points on the infant, including the wrists and feet. This position is recorded in the units of meters and is relative to the small of the infant’s back. Furthermore, the coordinate frame is as follows: +X runs from the small of the infant’s back to the head, +Y points to the right of the infant, and +Z emanates from the back of the infant (hence, we have a right-handed coordinate frame).
 
 # Final Product
-![Screen of GUI](assets/Kinematic Mapper.png)
+![Screen of GUI](assets/'Kinematic GUI.png')
