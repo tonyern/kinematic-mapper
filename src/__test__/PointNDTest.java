@@ -1,22 +1,21 @@
-import static org.junit.Assert.assertEquals;
 import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test case for PointND class.
  * We need a separate data file to test.
- * 
+ *
  * @author Tony Nguyen
  * @version 2.0
  */
-public class PointNDTest
-{
+public class PointNDTest {
     /**
      * Test default constructor if it set the collection map to empty.
      */
     @Test
-    public void testPointNDConstructor()
-    {
+    public void testPointNDConstructor() {
         PointND pointND = new PointND();
         Assert.assertEquals("", pointND.toString());
     }
@@ -25,14 +24,13 @@ public class PointNDTest
      * Testing the getValue method if it returns the correct corresponding value.
      */
     @Test
-    public void testGetValue()
-    {
+    public void testGetValue() {
         PointND pointND = new PointND();
         // Add stuff.
         pointND.add("One", new GeneralValue("1"));
         pointND.add("Two", new GeneralValue("2"));
         pointND.add("Three", new GeneralValue("3"));
-        
+
         // Testing if it returns null if we ask for a field that doesn't exist.
         Assert.assertEquals(null, pointND.getValue("Four"));
         // Testing if it returns the correct value 2 for Two.
@@ -45,8 +43,7 @@ public class PointNDTest
      * Testing if it returns the correct size.
      */
     @Test
-    public void testSize()
-    {
+    public void testSize() {
         // We create a PointND object and add stuff to it.
         PointND pointND = new PointND();
         pointND.add("This", new GeneralValue("1"));
@@ -61,8 +58,7 @@ public class PointNDTest
      * Testing toString if it returns in this format "SUBFIELDNAME = VALUE; ".
      */
     @Test
-    public void testToString()
-    {
+    public void testToString() {
         // Creating our PointND object populating the collections.
         PointND pointND = new PointND();
         pointND.add("This", new GeneralValue("1"));

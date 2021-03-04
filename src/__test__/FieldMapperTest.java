@@ -1,7 +1,7 @@
-import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.IOException;
 
 /**
  * Test case for our FieldMapper class.
@@ -9,15 +9,14 @@ import org.junit.Test;
  * @author Tony Nguyen
  * @version 2.0
  */
-public class FieldMapperTest
-{
+public class FieldMapperTest {
     /**
      * Testing the constructor.
+     *
      * @throws IOException xx
      */
     @Test
-    public void testConstructor() throws IOException
-    {
+    public void testConstructor() throws IOException {
         String testColumnHeaders = ("time,right_wrist_x,left_shoulder_z");
         FieldMapper testFieldMapper = new FieldMapper(testColumnHeaders.split(","));
         Assert.assertEquals(1, testFieldMapper.getField("right_wrist").getIndex("x").intValue());
@@ -28,8 +27,7 @@ public class FieldMapperTest
      * Testing getField method.
      */
     @Test
-    public void testGetField()
-    {
+    public void testGetField() {
         String testColumnHeaders = ("time,right_wrist_z,left_shoulder_z");
         FieldMapper testFieldMapper = new FieldMapper(testColumnHeaders.split(","));
         Assert.assertEquals(1, testFieldMapper.getField("right_wrist").getIndex("z").intValue());
@@ -40,8 +38,7 @@ public class FieldMapperTest
      * Testing extract pointND.
      */
     @Test
-    public void testExtractPointND()
-    {
+    public void testExtractPointND() {
         // Creating the FieldMapper.
         String testColumnHeaders = ("time,right_wrist_x,left_shoulder_z");
         String testValues = ("0.02,0.238,2.11");
@@ -57,8 +54,7 @@ public class FieldMapperTest
      * Testing size method.
      */
     @Test
-    public void testSize()
-    {
+    public void testSize() {
         String testColumnHeaders = ("time,right_wrist_x,left_shoulder_z");
         FieldMapper testFieldMapper = new FieldMapper(testColumnHeaders.split(","));
         Assert.assertEquals(3, testFieldMapper.size());
@@ -68,8 +64,7 @@ public class FieldMapperTest
      * Tests the iterator method.
      */
     @Test
-    public void testIterator()
-    {
+    public void testIterator() {
         // Creating the FieldMapper.
         String testColumnHeaders = ("time,right_wrist_x,right_wrist_y,left_shoulder_z");
         FieldMapper testFieldMapper = new FieldMapper(testColumnHeaders.split(","));

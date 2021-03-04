@@ -3,18 +3,16 @@ import org.junit.Test;
 
 /**
  * Test case for field class.
- * 
+ *
  * @author Tony Nguyen
  * @version 2.0
  */
-public class FieldTest 
-{
+public class FieldTest {
     /**
      * Testing default Field constructor if it returns an empty field.
      */
     @Test
-    public void testFieldConstructor()
-    {
+    public void testFieldConstructor() {
         Field field = new Field();
         Assert.assertEquals("", field.toString());
     }
@@ -23,8 +21,7 @@ public class FieldTest
      * Testing the add method if it puts items into the map.
      */
     @Test
-    public void testAdd()
-    {
+    public void testAdd() {
         Field field = new Field();
         field.addSubField("# of Women", 69);
         // Testing to see if when we add a key "# of Women" with value 69 that it returns 69.
@@ -35,8 +32,7 @@ public class FieldTest
      * Testing get index if it returns the right item in index we expect.
      */
     @Test
-    public void testGetIndex()
-    {
+    public void testGetIndex() {
         Field field = new Field();
         // Add stuff.
         field.addSubField("One", 1);
@@ -52,8 +48,7 @@ public class FieldTest
      * Testing get size.
      */
     @Test
-    public void testSize()
-    {
+    public void testSize() {
         // We create Field object and populate with three items.
         Field field = new Field();
         field.addSubField("One", 1);
@@ -67,8 +62,7 @@ public class FieldTest
      * Testing toString if it returns if this format "SUBFIELD(INDEX) ".
      */
     @Test
-    public void testToString()
-    {
+    public void testToString() {
         // We create Field object and populate with three items.
         Field field = new Field();
         field.addSubField("One", 1);
