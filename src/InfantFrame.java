@@ -1,87 +1,81 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.Timer;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Graphical user interface for interacting with Infant data
  *
  * @author CS2334, modified by Tony Nguyen
  * @version 2.0
- *
  */
-public class InfantFrame extends JFrame
-{
-    /** Serializable support.  */
+public class InfantFrame extends JFrame {
+    /**
+     * Serializable support.
+     */
     private static final long serialVersionUID = 1L;
 
-    /** Panel for selecting the station, statistic, and Year */
-    private SelectionPanel selectionPanel;
+    /**
+     * Panel for selecting the station, statistic, and Year
+     */
+    private final SelectionPanel selectionPanel;
 
-    /** Panel for displaying statistic */
-    private DataPanel dataPanel;
+    /**
+     * Panel for displaying statistic
+     */
+    private final DataPanel dataPanel;
 
-    /** Infant that is currently loaded.  */
+    /**
+     * Infant that is currently loaded.
+     */
     private Infant infant;
 
-    /** Currently selected trial.  */
+    /**
+     * Currently selected trial.
+     */
     private Trial trial;
 
-    /** Font used for labels and JLists.  */
+    /**
+     * Font used for labels and JLists.
+     */
     private static final Font FONT = new Font(Font.SANS_SERIF, Font.BOLD, 18);
 
     ///////////////////////////////////////////////////////////////////
+
     /**
-     *
      * @author CS2334, modified by Tony Nguyen
      * @version 2.0
-     *
+     * <p>
      * Menu bar that provides file loading and program exit capabilities.
-     *
      */
-    private class FileMenuBar extends JMenuBar
-    {
-        /** Serializable support.  */
+    private class FileMenuBar extends JMenuBar {
+        /**
+         * Serializable support.
+         */
         private static final long serialVersionUID = 1L;
-        /** Menu on the menu bar */
-        private JMenu menu;
-        /** Exit menu option */
-        private JMenuItem menuExit;
-        /** Open menu option.  */
-        private JMenuItem menuOpen;
-        /** Reference to a file chooser pop-up */
-        private JFileChooser fileChooser;
+        /**
+         * Menu on the menu bar
+         */
+        private final JMenu menu;
+        /**
+         * Exit menu option
+         */
+        private final JMenuItem menuExit;
+        /**
+         * Open menu option.
+         */
+        private final JMenuItem menuOpen;
+        /**
+         * Reference to a file chooser pop-up
+         */
+        private final JFileChooser fileChooser;
 
         /**
          * Constructor: fully assemble the menu bar and attach the
@@ -141,8 +135,7 @@ public class InfantFrame extends JFrame
                             InfantFrame.this.setCursor(null);
 
                             // Did we load any data?
-                            if (InfantFrame.this.infant.getSize() == 0)
-                            {
+                            if (InfantFrame.this.infant.getSize() == 0) {
                                 // No data loaded
                                 JOptionPane.showMessageDialog(fileChooser, "No data found");
                             }
@@ -150,9 +143,7 @@ public class InfantFrame extends JFrame
                             // Update the display
                             InfantFrame.this.update();
 
-                        }
-                        catch (IOException e2)
-                        {
+                        } catch (IOException e2) {
                             // Catch IO errors
                             JOptionPane.showMessageDialog(fileChooser,
                                     "File load error");
@@ -170,38 +161,45 @@ public class InfantFrame extends JFrame
 
 
     ///////////////////////////////////////////////////////////////////
+
     /**
-     *
      * @author CS2334, modified by Tony Nguyen
      * @version 2.0
-     *
+     * <p>
      * Selection panel: contains JLists for the list of trials
-     *
      */
-    private class SelectionPanel extends JPanel
-    {
-        /** Serializable support.  */
+    private class SelectionPanel extends JPanel {
+        /**
+         * Serializable support.
+         */
         private static final long serialVersionUID = 1L;
 
-        /** Selection of available trials/weeks.  */
-        private JList<String> trialList;
+        /**
+         * Selection of available trials/weeks.
+         */
+        private final JList<String> trialList;
 
-        /** List model for the trial list.  */
-        private DefaultListModel<String> trialListModel;
+        /**
+         * List model for the trial list.
+         */
+        private final DefaultListModel<String> trialListModel;
 
-        /** Scroll pane: trial list  */
-        private JScrollPane trialScroller;
+        /**
+         * Scroll pane: trial list
+         */
+        private final JScrollPane trialScroller;
 
-        /**  Trial selection label */
-        private JLabel trialLabel;
+        /**
+         * Trial selection label
+         */
+        private final JLabel trialLabel;
 
         /**
          * Constructor
-         *
+         * <p>
          * Creates a 1x2 grid of components with labels down the left column and Jlist down the 2nd column
          */
-        private SelectionPanel()
-        {
+        private SelectionPanel() {
             ////////////////////////////
             // Create the JList for trial selection
             // List model contains the data to be displayed.  Uses Trial.toString() to obtain strings
@@ -222,8 +220,7 @@ public class InfantFrame extends JFrame
             // Selection Listeners
 
             // Trial list
-            trialList.addListSelectionListener(new ListSelectionListener()
-            {
+            trialList.addListSelectionListener(new ListSelectionListener() {
                 public void valueChanged(ListSelectionEvent e) {
                     InfantFrame.this.update();
                 }
@@ -261,23 +258,19 @@ public class InfantFrame extends JFrame
 
         /**
          * Update the entire selection panel based on the currently-loaded infant.
-         *
+         * <p>
          * This method is called when a new infant is loaded
-         *
          */
-        private void updateSelections()
-        {
+        private void updateSelections() {
             ////////////////
             // Trial list
 
             // Clear all elements
             this.trialListModel.clear();
 
-            if (infant != null)
-            {
+            if (infant != null) {
                 // Loop through every trial & add it to the list model
-                for (Trial t: infant)
-                {
+                for (Trial t : infant) {
                     this.trialListModel.addElement(t.toString());
                 }
             }
@@ -285,6 +278,7 @@ public class InfantFrame extends JFrame
     }
 
     ///////////////////////////////////////////////////////////////////
+
     /**
      * DataPanel: display selection information and statistics
      *
@@ -292,55 +286,85 @@ public class InfantFrame extends JFrame
      * @version 2.0
      */
 
-    public class DataPanel extends JPanel
-    {
-        /** Serializable support.  */
+    public class DataPanel extends JPanel {
+        /**
+         * Serializable support.
+         */
         private static final long serialVersionUID = 1L;
 
-        /** Root point for the kinematic tree */
-        private KinematicPointAbstract rootPoint;
+        /**
+         * Root point for the kinematic tree
+         */
+        private final KinematicPointAbstract rootPoint;
 
-        /** Panel for all kinematic views.  */
-        private JPanel viewPanel;
-        /** Panels for top kinematic view.  */
-        private KinematicPanel topViewPanel;
-        /** Panels for side kinematic view.  */
-        private KinematicPanel sideViewPanel;
-        /** Panels for rear kinematic view.  */
-        private KinematicPanel rearViewPanel;
-        /** Panel for textual data.  */
-        private JPanel textPanel;
-        /** Infant ID display */
+        /**
+         * Panel for all kinematic views.
+         */
+        private final JPanel viewPanel;
+        /**
+         * Panels for top kinematic view.
+         */
+        private final KinematicPanel topViewPanel;
+        /**
+         * Panels for side kinematic view.
+         */
+        private final KinematicPanel sideViewPanel;
+        /**
+         * Panels for rear kinematic view.
+         */
+        private final KinematicPanel rearViewPanel;
+        /**
+         * Panel for textual data.
+         */
+        private final JPanel textPanel;
+        /**
+         * Infant ID display
+         */
         private JTextField infantTextField;
-        /** Current time index display */
+        /**
+         * Current time index display
+         */
         private JTextField timeTextField;
 
 
-        /** Slider for showing/setting current time index */
-        private JSlider timeSlider;
-        /** Current time index.  */
+        /**
+         * Slider for showing/setting current time index
+         */
+        private final JSlider timeSlider;
+        /**
+         * Current time index.
+         */
         private int currentTime = 0;
-        /** Button for start/stop of animation. */
-        private JButton runButton;
-        /** Panel for containing button and slider.  */
-        private JPanel timePanel;
-        /** Animation timer.  */
-        private Timer timer;
+        /**
+         * Button for start/stop of animation.
+         */
+        private final JButton runButton;
+        /**
+         * Panel for containing button and slider.
+         */
+        private final JPanel timePanel;
+        /**
+         * Animation timer.
+         */
+        private final Timer timer;
 
-        /** Width of text fields.  */
+        /**
+         * Width of text fields.
+         */
         private static final int FIELD_WIDTH = 30;
 
-        /** Width of lines in kinematic models */
+        /**
+         * Width of lines in kinematic models
+         */
         public static final int LINE_WIDTH = 3;
 
 
         /**
          * Constructor
-         *
+         * <p>
          * Create and lay out the data display panel
          */
-        private DataPanel()
-        {
+        private DataPanel() {
             // Background color of the panel
             this.setBackground(new Color(200, 200, 230));
             this.rootPoint = createKinematicModel();
@@ -379,8 +403,7 @@ public class InfantFrame extends JFrame
             this.timer = new Timer(5, new ActionListener() {
 
                 @Override
-                public void actionPerformed(ActionEvent e)
-                {
+                public void actionPerformed(ActionEvent e) {
                     // Set the current time to one higher than its current value
                     currentTime += 1;
                 }
@@ -445,8 +468,7 @@ public class InfantFrame extends JFrame
             this.timeSlider.addChangeListener(new ChangeListener() {
 
                 @Override
-                public void stateChanged(ChangeEvent e)
-                {
+                public void stateChanged(ChangeEvent e) {
                     // Set the current time to match the slider time
                     DataPanel.this.setTime(DataPanel.this.timeSlider.getValue());
                 }
@@ -455,21 +477,18 @@ public class InfantFrame extends JFrame
 
             ///////////////////////////
             // Button action listener: used to start/stop the animation
-            this.runButton.addActionListener(new ActionListener()  {
+            this.runButton.addActionListener(new ActionListener() {
 
                 @Override
-                public void actionPerformed(ActionEvent e)
-                {
+                public void actionPerformed(ActionEvent e) {
                     // If the timer is running and the user wants to stop it.
-                    if (timer.isRunning())
-                    {
+                    if (timer.isRunning()) {
                         // Change button text to stop and timer stops running.
                         runButton.setText("Stop");
                         timer.stop();
                     }
                     // If the timer is stopped and user wants to run it again.
-                    if (!timer.isRunning())
-                    {
+                    if (!timer.isRunning()) {
                         // Change button text to start and timer runs.
                         runButton.setText("Start");
                         timer.start();
@@ -489,27 +508,23 @@ public class InfantFrame extends JFrame
 
         /**
          * Set the current time for the animation.
-         *
+         * <p>
          * Notes:
          * - Deal with the case that 'trial' is null
          * - If the new time is within allowable range, then use that
-         *     as the current time, set the timeSlider to this time,
-         *     extract the state for the current time and force an update
-         *     of the display
+         * as the current time, set the timeSlider to this time,
+         * extract the state for the current time and force an update
+         * of the display
          * - If the new time is outside of the allowable range, then ensure
-         *     that the timer is off
-         *
+         * that the timer is off
          *
          * @param newTime The new time step
          */
-        public void setTime(int newTime)
-        {
+        public void setTime(int newTime) {
             // Do we have a trial?
-            if (InfantFrame.this.trial != null)
-            {
+            if (InfantFrame.this.trial != null) {
                 // Is the new time within 0 to 15000 range?
-                if (newTime >= 0 && newTime < 15000)
-                {
+                if (newTime >= 0 && newTime < 15000) {
                     // Set the currentTime to the newTime.
                     this.currentTime = newTime;
                     // Set the timeSlider to the new time.
@@ -521,8 +536,7 @@ public class InfantFrame extends JFrame
                     update(state);
                 }
                 // Else if new time is not in allowable range then timer is off.
-                else
-                {
+                else {
                     timer.stop();
                 }
             }
@@ -534,8 +548,7 @@ public class InfantFrame extends JFrame
          *
          * @return The root of the kinematic tree
          */
-        public KinematicPointAbstract createKinematicModel()
-        {
+        public KinematicPointAbstract createKinematicModel() {
             /** Root point and its children. */
             // Root at point (0, 0, 0).
             KinematicPointConstant root = new KinematicPointConstant(new Color(252, 24, 24), LINE_WIDTH, 0, 0, 0);
@@ -613,8 +626,7 @@ public class InfantFrame extends JFrame
          *
          * @param state The current state
          */
-        private void update(State state)
-        {
+        private void update(State state) {
             // Update the kinematic panels.
             this.topViewPanel.setState(state);
             this.sideViewPanel.setState(state);
@@ -634,11 +646,10 @@ public class InfantFrame extends JFrame
 
     /**
      * InfantFrame constructor
-     *
+     * <p>
      * Two frames are side-by-side: SelectionPanel on the left and DataPanel on the right.
      */
-    public InfantFrame()
-    {
+    public InfantFrame() {
         super("Infant Explorer");
 
         // Menu bar
@@ -680,16 +691,15 @@ public class InfantFrame extends JFrame
 
     /**
      * Load a new Infant.
-     *
+     * <p>
      * This method is declared as "synchronized" to ensure that only one thread is allowed to call it
      * and other synchronized methods at once.
      *
      * @param directory Directory in which the infant data files (csv) are located
-     * @param infantID ID of the infant to be loaded
+     * @param infantID  ID of the infant to be loaded
      * @throws IOException Thrown if an error occurs while reading the file
      */
-    public synchronized void loadData(String directory, String infantID) throws IOException
-    {
+    public synchronized void loadData(String directory, String infantID) throws IOException {
         // Create the new infant object
         infant = new Infant(directory, infantID);
 
@@ -700,27 +710,23 @@ public class InfantFrame extends JFrame
     /**
      * Translate the selections made in the SelectionPanel into the configuration of the
      * dataPanel
-     *
+     * <p>
      * This method is declared as "synchronized" to ensure that only one thread is allowed to call it
      * and other synchronized methods at once.
-     *
+     * <p>
      * One of the challenges in implementing this method is that it can be called at any time.  In
      * particular, the structures that it is referencing may be in the process of being updated.  So,
      * we cannot assume that things like "selected values" are not actually set to something interesting
      * or useful.
-     *
      */
-    public synchronized void update()
-    {
+    public synchronized void update() {
         // Selected trial
         int trialIndex = selectionPanel.trialList.getSelectedIndex();
 
         // Must have a valid infant with some trials
-        if (infant != null && infant.getSize() > 0)
-        {
+        if (infant != null && infant.getSize() > 0) {
             // Check to make sure that the selected trial is in the valid range
-            if (trialIndex >= 0 && trialIndex < infant.getSize())
-            {
+            if (trialIndex >= 0 && trialIndex < infant.getSize()) {
                 // Extract the trial
                 this.trial = infant.getItem(trialIndex);
                 // Reset the time index to the beginning (this will cause an update)
@@ -732,13 +738,12 @@ public class InfantFrame extends JFrame
 
     /**
      * Return a reference to the data panel.
-     *
+     * <p>
      * FOR TESTING ONLY
      *
      * @return the data panel.
      */
-    public DataPanel getDataPanel()
-    {
+    public DataPanel getDataPanel() {
         return this.dataPanel;
     }
 }

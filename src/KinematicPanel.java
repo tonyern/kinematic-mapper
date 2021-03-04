@@ -1,11 +1,6 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.Border;
+import java.awt.*;
 
 /**
  * Panel for drawing a single view of an infant.
@@ -13,43 +8,59 @@ import javax.swing.border.Border;
  * @author CS2334, modified by Tony Nguyen
  * @version 2.0
  */
-public class KinematicPanel extends JPanel
-{
-    /** Serial ID  */
+public class KinematicPanel extends JPanel {
+    /**
+     * Serial ID
+     */
     private static final long serialVersionUID = 1L;
-    /** Drawing flip direction for X: +/-1 because of changed coordinate system */
-    private double flipX;
-    /** Drawing flip direction for Y: +/-1 because of changed coordinate system */
-    private double flipY;
+    /**
+     * Drawing flip direction for X: +/-1 because of changed coordinate system
+     */
+    private final double flipX;
+    /**
+     * Drawing flip direction for Y: +/-1 because of changed coordinate system
+     */
+    private final double flipY;
 
-    /** Subfield used for X dimension. */
-    private String screenXSubfield;
-    /** Subfield used for Y dimension. */
-    private String screenYSubfield;
-    /** Root of the kinematic tree that is the (0, 0, 0) origin of the body.  */
-    private KinematicPointAbstract rootPoint;
-    /** State to render.  */
+    /**
+     * Subfield used for X dimension.
+     */
+    private final String screenXSubfield;
+    /**
+     * Subfield used for Y dimension.
+     */
+    private final String screenYSubfield;
+    /**
+     * Root of the kinematic tree that is the (0, 0, 0) origin of the body.
+     */
+    private final KinematicPointAbstract rootPoint;
+    /**
+     * State to render.
+     */
     private State state;
-    /** Panel title */
-    private String title;
-    /** Font used for panel title.  */
+    /**
+     * Panel title
+     */
+    private final String title;
+    /**
+     * Font used for panel title.
+     */
     private static final Font FONT = new Font("Times New Roman", Font.BOLD, 25);
 
     /**
      * Constructor for Kinematic Panel
      *
-     * @param rootPoint Root of the kinematic tree for this panel
-     * @param flipX Drawing direction for X dimension: +/- 1
-     * @param flipY Drawing direction for Y dimension: +/- 1
+     * @param rootPoint       Root of the kinematic tree for this panel
+     * @param flipX           Drawing direction for X dimension: +/- 1
+     * @param flipY           Drawing direction for Y dimension: +/- 1
      * @param screenXSubfield Subfield name for the X dimension
      * @param screenYSubfield Subfield name for the Y dimension
-     * @param title Panel title
+     * @param title           Panel title
      */
     public KinematicPanel(
             KinematicPointAbstract rootPoint,
             double flipX, double flipY,
-            String screenXSubfield, String screenYSubfield, String title)
-    {
+            String screenXSubfield, String screenYSubfield, String title) {
         super();
         this.flipX = flipX;
         this.flipY = flipY;
@@ -69,8 +80,7 @@ public class KinematicPanel extends JPanel
      *
      * @param state State to be rendered
      */
-    public void setState(State state)
-    {
+    public void setState(State state) {
         this.state = state;
         this.repaint();
     }
@@ -80,8 +90,7 @@ public class KinematicPanel extends JPanel
      *
      * @param g Graphics context
      */
-    protected void paintComponent(Graphics g)
-    {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         // Draw the title for the view panel like Top View, Rear View, and Side View.
@@ -89,8 +98,7 @@ public class KinematicPanel extends JPanel
         g.drawString(title, 25, 25);
 
         // Render as long as state is defined
-        if (this.state != null)
-        {
+        if (this.state != null) {
             Graphics2D g2 = (Graphics2D) g;
 
             // Translate the graphics context origin to the center of the panel

@@ -1,17 +1,17 @@
 /**
  * @author Tony Nguyen
  * @version 2.0
- *
+ * <p>
  * MultipleItemAbstract Class - The heavy calculating is done within this class for the Max/Min/Avg values.
  * This class extends Single Item and also is able to obtain the size of the array and also obtain certain indexes.
  */
-public abstract class MultipleItemAbstract extends SingleItemAbstract
-{
+public abstract class MultipleItemAbstract extends SingleItemAbstract {
     /**
      * @return Returns the size of the array.
      */
     public abstract int getSize()
     ;
+
     /**
      * @param index The specific location that the user wants to pull from the arrayList.
      * @return Returns the contents found in the parameters value.
@@ -22,12 +22,11 @@ public abstract class MultipleItemAbstract extends SingleItemAbstract
      * This method cycles through all the values of the given field and subfield
      * and then calculates and returns the state that contains the maximum value.
      *
-     * @param fieldName The field we are looking at (ie. right_wrist).
+     * @param fieldName    The field we are looking at (ie. right_wrist).
      * @param subFieldName The subfield of the field (ie. X/Y/Z).
      * @return Returns the State in which the max resides for the field and subfield.
      */
-    public State getMaxState(String fieldName, String subFieldName)
-    {
+    public State getMaxState(String fieldName, String subFieldName) {
         //Sets the maximum value to negative infinity so that any value great can take its place.
         State finalMax = new State();
         finalMax.getPoint(fieldName).add(subFieldName, new GeneralValue(Double.NEGATIVE_INFINITY));
@@ -39,14 +38,12 @@ public abstract class MultipleItemAbstract extends SingleItemAbstract
         GeneralValue holdMaxGV = new GeneralValue();
         holdMaxGV = finalMax.getValue(fieldName, subFieldName);
         //Loops for as long as the size of the array.
-        for (int x = 0; x < getSize(); x++)
-        {
+        for (int x = 0; x < getSize(); x++) {
             //Grabs the next candidate to compare towards the current max.
             holder = getItem(x).getMaxState(fieldName, subFieldName);
             holdNewGV = holder.getValue(fieldName, subFieldName);
             //Checks if it is greater than the previous value.
-            if (holdNewGV.isGreaterThan(holdMaxGV))
-            {
+            if (holdNewGV.isGreaterThan(holdMaxGV)) {
                 //Sets the max to the new found max value as a GeneralValue Object.
                 finalMax = holder;
                 holdMaxGV = finalMax.getValue(fieldName, subFieldName);
@@ -60,12 +57,11 @@ public abstract class MultipleItemAbstract extends SingleItemAbstract
      * This method cycles through all the values of the given field and subfield
      * and then calculates and returns the state that contains the minimum value.
      *
-     * @param fieldName The field we are looking at (ie. right_wrist).
+     * @param fieldName    The field we are looking at (ie. right_wrist).
      * @param subFieldName The subfield of the field (ie. X/Y/Z).
      * @return Returns the State in which the min resides for the field and subfield.
      */
-    public State getMinState(String fieldName, String subFieldName)
-    {
+    public State getMinState(String fieldName, String subFieldName) {
         //Sets the minimum value to positive infinity so that any value less can take its place.
         State finalMin = new State();
         finalMin.getPoint(fieldName).add(subFieldName, new GeneralValue(Double.POSITIVE_INFINITY));
@@ -77,14 +73,12 @@ public abstract class MultipleItemAbstract extends SingleItemAbstract
         GeneralValue holdMinGV = new GeneralValue();
         holdMinGV = finalMin.getValue(fieldName, subFieldName);
         //Loops for as long as the size of the array.
-        for (int x = 0; x < getSize(); x++)
-        {
+        for (int x = 0; x < getSize(); x++) {
             //Grabs the next candidate to be compared to the minimum value.
             holder = getItem(x).getMinState(fieldName, subFieldName);
             holdNewGV = holder.getValue(fieldName, subFieldName);
             //Checks if it is lesser than the previous value.
-            if (holdNewGV.isLessThan(holdMinGV))
-            {
+            if (holdNewGV.isLessThan(holdMinGV)) {
                 //Sets the minimum to the new found minimum value as a GeneralValue object.
                 finalMin = holder;
                 holdMinGV = finalMin.getValue(fieldName, subFieldName);
@@ -98,12 +92,11 @@ public abstract class MultipleItemAbstract extends SingleItemAbstract
      * is looking to obtain by adding all the values together and then
      * dividing it to obtain the average value.
      *
-     * @param fieldName The field we are looking at (ie. right_wrist).
+     * @param fieldName    The field we are looking at (ie. right_wrist).
      * @param subFieldName The subfield of the field (ie. X/Y/Z).
      * @return Returns the GeneralValue for the average value for the field and subfield.
      */
-    public GeneralValue getAverageValue(String fieldName, String subFieldName)
-    {
+    public GeneralValue getAverageValue(String fieldName, String subFieldName) {
         //Holds the combined numbers.
         double avgLeft = 0.0;
         //Holds the completed average.
@@ -113,13 +106,11 @@ public abstract class MultipleItemAbstract extends SingleItemAbstract
         //Holds the new GeneralValue to be added.
         GeneralValue holdingGV = new GeneralValue();
         //Loops for as long as the size of the array.
-        for (int x = 0; x < getSize(); x++)
-        {
+        for (int x = 0; x < getSize(); x++) {
             //Grabs the next candidate to be added.
             holdingGV = getItem(x).getAverageValue(fieldName, subFieldName);
             //Checks if the number is valid.
-            if (holdingGV.isValid())
-            {
+            if (holdingGV.isValid()) {
                 //Adds the numbers together.
                 avgLeft += (holdingGV.getDoubleValue());
                 countTotal++;
