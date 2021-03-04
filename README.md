@@ -1,9 +1,9 @@
-#Who
+##Who
 
 This program was implemented by Tony Nguyen and Michael Morgan. Dr. Fagg, Computer Science
 professor at the University of Oklahoma, provided the data as it was his project.
 
-#About
+##About
 
 This project is a Java GUI program that takes data from the Self-Initiated Prone
 Progression Crawler (SIPPC), more details about this below, and models it.
@@ -26,6 +26,6 @@ the small of the infant’s back to the head, +Y points to the right of the infa
 +Z emanates from the back of the infant (hence, we have a right-handed coordinate
 frame).
 
-#Final Product
+##Final Product
 
 ![Screenshot of GUI](/assets/Kinematic GUI.png)
