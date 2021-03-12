@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 /**
  * Test case for PointND class.
@@ -32,7 +33,7 @@ public class PointNDTest {
         pointND.add("Three", new GeneralValue("3"));
 
         // Testing if it returns null if we ask for a field that doesn't exist.
-        Assert.assertEquals(null, pointND.getValue("Four"));
+        Assert.assertNotEquals(new GeneralValue(), pointND.getValue("Four"));
         // Testing if it returns the correct value 2 for Two.
         assertEquals(new GeneralValue("1").getDoubleValue(), pointND.getValue("One").getDoubleValue(), 0.0001);
         assertEquals(new GeneralValue("2").getDoubleValue(), pointND.getValue("Two").getDoubleValue(), 0.0001);
